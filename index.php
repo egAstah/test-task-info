@@ -68,32 +68,22 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script>
-    $.ajax({
-      url: "./ajax.php",
-      method: "post",
-      dataType: "html",
-      data: {
-        event: 'start'
-      },
-      success: function(data) {
-        document.getElementById("result").innerHTML = data
-      },
-    });
+    function postAjax(data) {
+      $.ajax({
+        url: "./ajax.php",
+        method: "post",
+        dataType: "html",
+        data: data,
+        success: function(data) {
+          document.getElementById("result").innerHTML = data
+        },
+      });
+    }
+    postAjax({event: 'start'})
     let input = document.getElementById("city-name");
     input.oninput = function() {
       if (input.value.length >= 3) {
-        $.ajax({
-          url: "./ajax.php",
-          method: "post",
-          dataType: "html",
-          data: {
-            value: input.value,
-            event: 'filter'
-          },
-          success: function(data) {
-            document.getElementById("result").innerHTML = data
-          },
-        });
+        postAjax({value: input.value, event: 'filter'})
       } else {
         document.getElementById("result").innerHTML = ''
       }
@@ -101,7 +91,7 @@
     $(document).on('click', '.btn-modal', function() {
       $('.modal-bg').css('display', 'flex')
     })
-    $(document).on('click', '.close', function(){
+    $(document).on('click', '.close', function() {
       $('.modal-bg').hide()
     })
   </script>
