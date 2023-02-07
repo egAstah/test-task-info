@@ -75,19 +75,23 @@
         dataType: "html",
         data: data,
         success: function(data) {
-          document.getElementById("result").innerHTML = data
+          $("#result").html(data)
         },
       });
     }
-    postAjax({event: 'start'})
-    let input = document.getElementById("city-name");
-    input.oninput = function() {
-      if (input.value.length >= 3) {
-        postAjax({value: input.value, event: 'filter'})
+    postAjax({
+      event: 'start'
+    })
+    $(document).on('input', '#city-name', function() {
+      if ($(this).val().length >= 3) {
+        postAjax({
+          value: $(this).val(),
+          event: 'filter'
+        })
       } else {
-        document.getElementById("result").innerHTML = ''
+        $("#result").html('')
       }
-    };
+    })
     $(document).on('click', '.btn-modal', function() {
       $('.modal-bg').css('display', 'flex')
     })
